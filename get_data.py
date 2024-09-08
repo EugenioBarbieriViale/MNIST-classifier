@@ -18,8 +18,10 @@ def process(name_file):
         data = f.read()
     return np.frombuffer(gzip.decompress(data), dtype=np.uint8).copy()
 
-X_train = process(train_image_file)[0x10:].reshape((-1, 28, 28))
+# X_train = process(train_image_file)[0x10:].reshape((-1, 28, 28))
+X_train = process(train_image_file)[0x10:].reshape((-1, 1, 28*28))
 Y_train = process(train_label_file)[8:]
 
-X_test = process(test_image_file)[0x10:].reshape((-1, 28, 28))
+# X_test = process(test_image_file)[0x10:].reshape((-1, 28, 28))
+X_test = process(test_image_file)[0x10:].reshape((-1, 1, 28*28))
 Y_test = process(test_label_file)[8:]
