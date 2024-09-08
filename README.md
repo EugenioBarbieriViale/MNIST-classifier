@@ -18,6 +18,8 @@ https://pyimagesearch.com/2021/05/06/backpropagation-from-scratch-with-python/
 
 # Videos
 
+https://www.youtube.com/watch?v=157JtMJUlko
+
 https://www.youtube.com/watch?v=SmZmBKc7Lrs
 
-https://www.youtube.com/watch?v=157JtMJUlko
+https://www.youtube.com/watch?v=-zI1bldB8to
