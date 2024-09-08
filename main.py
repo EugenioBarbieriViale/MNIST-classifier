@@ -12,7 +12,7 @@ def sigmoid(x):
     return (1/(1 + np.exp(-x)))
 
 def d_sigmoid(x):
-    return np.exp(-x)/(exp(-x)**2 + 1)
+    return np.exp(-x)/(np.exp(-x)**2 + 1)
 
 
 def init_weights(rows, cols):
@@ -29,4 +29,6 @@ for i in range(epochs):
     output_layer = sigmoid(np.dot(hidden_layer, w2))
 
     target = [1 if (n+1) == label else 0 for n in range(output_size)]
-    err = (output_layer - target) ** 2
+    loss = (output_layer - target) * d_sigmoid(output_layer)
+    cost = loss.sum()
+
