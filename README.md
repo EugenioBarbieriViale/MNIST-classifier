@@ -15,3 +15,9 @@ https://github.com/iamtrask/Grokking-Deep-Learning
 https://machinelearningmastery.com/implement-backpropagation-algorithm-scratch-python/
 
 https://pyimagesearch.com/2021/05/06/backpropagation-from-scratch-with-python/
+
+# Videos
+
+https://www.youtube.com/watch?v=SmZmBKc7Lrs
+
+https://www.youtube.com/watch?v=157JtMJUlko
