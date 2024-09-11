@@ -2,7 +2,7 @@ import numpy as np
 from get_data import X_train, Y_train
 from network import NN
 
-input_size = 784
+input_size  = 784
 hidden_size = 128
 output_size = 10
 
