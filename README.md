@@ -1,5 +1,10 @@
 # MNIST-classifier
 
+## Back prop
+https://cs231n.github.io/optimization-2/
+
+-------
+
 https://towardsdatascience.com/mnist-handwritten-digits-classification-from-scratch-using-python-numpy-b08e401c4dab
 
 https://github.com/karynaur/mnist-from-numpy/blob/main/mnist.py
