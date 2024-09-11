@@ -18,31 +18,23 @@ class NN:
     def d_sigmoid(self, x):
         return (np.exp(-x))/((np.exp(-x)+1)**2)
 
-    def back_forward(self, input_layer, target):
+    def forward(self, input_layer):
         hidden_net = np.dot(input_layer, self.w1)
         hidden_out = self.sigmoid(hidden_net)
 
         output_net = np.dot(hidden_out, self.w2)
         output_out = self.sigmoid(output_net)
 
-        error = 2 * (output_out - target) / output_out.shape[0] * self.d_sigmoid(output_net)
-        update_l2 = hidden_out.T @ error
+        return output_out
 
-        error = ((self.w2).dot(error.T)).T * self.d_sigmoid(hidden_net)
-        update_l1 = input_layer.T @ error
-
-        print(hidden_net)
-
-        return output_out, update_l1, update_l2
+    def loss(self, output, label):
+        self.target = [1.0 if n == (label-1) else 0.0 for n in range(self.out_size)]
+        return ((output - self.target) ** 2).sum()
     
     def train(self, input_layer, label):
-        target = [1.0 if n == (label-1) else 0.0 for n in range(self.out_size)]
-
         for j in range(self.epochs):
-            out, u1, u2 = self.back_forward(input_layer, target)
 
-            self.w1 -= self.learn_rate * u1
-            self.w2 -= self.learn_rate * u2
-        
-            cost = ((out - target) ** 2).sum()
+            out = self.forward(input_layer)
+            cost = self.loss(out, label)
+
             print(cost)
