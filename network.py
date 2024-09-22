@@ -2,7 +2,7 @@ import numpy as np
 
 class NN:
     def __init__(self, input_size, hidden_size, output_size):
-        self.epochs = 10000
+        self.epochs = 1000
         self.learn_rate = 1e-2
 
         self.in_size  = input_size
@@ -18,19 +18,30 @@ class NN:
     def d_sigmoid(self, x):
         return self.sigmoid(x) * (1 - self.sigmoid(x))
 
-    def softamx(self, x):
-        return np.exp(x) / np.exp(x).sum()
+    def softmax(self, v):
+        return np.exp(v) / np.exp(v).sum()
+
+    # def softmax(self, x):
+    #     exp_element=np.exp(x-x.max())
+    #     return exp_element/np.sum(exp_element,axis=0)
+
+    def d_softmax(self, x):
+        exp_element=np.exp(x-x.max())
+        return exp_element/np.sum(exp_element,axis=0)*(1-exp_element/np.sum(exp_element,axis=0))
 
     def forward(self, input_layer):
         self.hidden_net = np.dot(input_layer, self.w1)
         self.hidden_out = self.sigmoid(self.hidden_net)
 
         self.output_net = np.dot(self.hidden_out, self.w2)
-        self.output_out = self.sigmoid(self.output_net)
+        self.output_out = self.softmax(self.output_net)
 
     def backward(self, input_layer):
-        w2_delta = 2 * (self.target - self.output_out) * self.d_sigmoid(self.output_out)
-        w1_delta = np.dot(self.w2, w2_delta.T).T * self.d_sigmoid(self.hidden_out)
+        out_error = 2 * (self.target - self.output_out) * self.d_softmax(self.output_out)
+        hid_error = np.dot(self.w2, out_error.T).T * self.d_sigmoid(self.hidden_out)
+
+        w2_delta = np.dot(self.hidden_out.T, out_error)
+        w1_delta = np.dot(input_layer.T, hid_error)
 
         return w2_delta, w1_delta
 
@@ -40,6 +51,9 @@ class NN:
     def train(self, input_layer, label):
         self.target = np.zeros((1, 10), np.float32)
         self.target[0][label] = 1
+
+        self.w1 /= 100
+        self.w2 /= 100
 
         for j in range(self.epochs):
 
@@ -51,7 +65,4 @@ class NN:
             self.w2 -= self.learn_rate * up_w2
             self.w1 -= self.learn_rate * up_w1
 
-            # print(j, self.hidden_out)
-            # print(j, self.output_out)
-            # print(j, self.w2[0][0], self.w1[0][0])
-            # print(j, cost)
+            print(j, cost)
