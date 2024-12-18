@@ -64,6 +64,7 @@ plt.plot(loss_history, label="loss")
 plt.plot(loss_val_history, label="val_loss")
 plt.legend()
 plt.title("Loss")
+plt.show()
 
 plt.plot(acc_history, label="accuracy")
 plt.plot(acc_val_history, label="val_accuracy")
@@ -87,3 +88,4 @@ def test(index):
     plt.imshow(data_val[index])
     plt.show()
 
+test(100)
